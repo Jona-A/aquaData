@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="566.0" prefWidth="997.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.addDeviceController">
+   <children>
+      <CheckBox fx:id="inputGpsB" layoutX="44.0" layoutY="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="182.0" text="Apparaat heeft GPS?">
+      </CheckBox>
+      <Button layoutX="550.0" layoutY="215.0" mnemonicParsing="false" onAction="#addCancel" prefHeight="36.0" prefWidth="88.0" text="Cancel" />
+      <Button fx:id="" layoutX="650.0" layoutY="215.0" mnemonicParsing="false" onAction="#nieuwApparaat" prefHeight="36.0" prefWidth="124.0" text="voeg apparaat toe" />
+      <TextField fx:id="inputPlaatsnaam" layoutX="37.0" layoutY="133.0" prefHeight="25.0" prefWidth="213.0" promptText="Plaatsnaam van locatie apparaat"  />
+      <TextField fx:id="inputBeschrijving" layoutX="291.0" layoutY="133.0" prefHeight="119.0" prefWidth="234.0" promptText="Beschrijving van Locatie" />
+      <Label layoutX="37.0" layoutY="5.0" prefHeight="36.0" prefWidth="294.0" text="Voeg een Apparaat toe." />
+      <Label layoutX="37.0" layoutY="41.0" prefHeight="17.0" prefWidth="213.0" text="Kies zelf een apparaat ID" />
+      <TextField fx:id="inputDeviceId" layoutX="37.0" layoutY="66.0" prefHeight="25.0" prefWidth="213.0" promptText="Een getal onder de 2 miljoen." />
+      <Label layoutX="37.0" layoutY="108.0" prefHeight="17.0" prefWidth="234.0" text="Plaatsnaam van de locatie van het apparaat." />
+      <Label layoutX="291.0" layoutY="108.0" prefHeight="17.0" prefWidth="245.0" text="Beschrijving van de locatie van het apparaat." />
+      <Label layoutX="37.0" layoutY="221.0" prefHeight="17.0" prefWidth="44.0" text="GPS Id:" />
+      <TextField fx:id="inputGpsId" layoutX="80.0" layoutY="217.0" prefHeight="25.0" prefWidth="171.0" promptText="0" />
+      <TextField fx:id="inputHardware" layoutX="39.0" layoutY="293.0" prefHeight="25.0" prefWidth="213.0" promptText="Microcontroller" />
+      <Label layoutX="42.0" layoutY="268.0" prefHeight="17.0" prefWidth="213.0" text="Voer het soort hardware in" />
+   <TableView fx:id="adTafel" layoutX="14.0" layoutY="255.0" maxHeight="634.0" maxWidth="1000.0" minHeight="300.0" minWidth="400.0" prefHeight="322.0" prefWidth="900.0">
+      <columns>
+         <TableColumn fx:id="adID" editable="false" prefWidth="100.0" text="DeviceID" />
+         <TableColumn fx:id="installD" prefWidth="140.0" text="InstallDate" />
+         <TableColumn fx:id="locatie" prefWidth="125.0" text="Plaats naam" />
+         <TableColumn fx:id="beschrijving" prefWidth="145.0" text="Beschrijving" />
+         <TableColumn fx:id="stofWaarde" prefWidth="135.0" text="PPM" />
+         <TableColumn fx:id="gps" prefWidth="125.0" text="GPS" />
+         <TableColumn fx:id="gpsId" prefWidth="125.0" text="gps ID" />
+      </columns>
+   </TableView>
+   <Label layoutX="340.0" layoutY="349.0" text="Label" visible="false" />
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="557.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+   <image>
+      <Image url="@images/adLogo320px.png" />
+   </image>
+</ImageView>
+   </children>
+</AnchorPane>

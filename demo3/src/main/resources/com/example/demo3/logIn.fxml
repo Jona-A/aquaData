@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.LogIn">
+    <children>
+        <Button layoutX="25.0" layoutY="339.0" mnemonicParsing="false" onAction="#addCancel" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: red;" text="Cancel" />
+        <Label fx:id="wwLabel" layoutX="269.0" layoutY="69.0" prefHeight="36.0" prefWidth="200.0" text="Voer wachtwoord in.">
+         <font> <Font size="14.0" /> </font>
+        </Label>
+        <PasswordField fx:id="inputPassword" layoutX="269.0" layoutY="105.0" promptText="enter Password" text="milan" />
+        <Button fx:id="switchScenebtn" layoutX="419.0" layoutY="105.0" mnemonicParsing="false" onAction="#vergelijkKnop" style="-fx-background-color: blue;" text="Log-in" />
+    </children>
+</AnchorPane>
