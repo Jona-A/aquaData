@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="183e3df8-4861-42e6-b5b3-d54705c9f464" name="Changes" comment="" />
+    <list default="true" id="183e3df8-4861-42e6-b5b3-d54705c9f464" name="Changes" comment="Colors changed in addDevice. Lay-out changed in home-page" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,8 +20,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Jona-A &lt;jonabrands@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Crosshair8914"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Jona-A/aquaData.git",
+    "accountId": "819bb0bb-863f-4e1c-ad5d-820b8e0f8fa3"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/com/example/demo3/adGuiController.java" root0="SKIP_INSPECTION" />
   </component>
@@ -60,7 +77,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.41264367",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -85,7 +102,37 @@
       <option name="presentableId" value="Default" />
       <updated>1731589999130</updated>
     </task>
+    <task id="LOCAL-00001" summary="Colors changed in addDevice. Lay-out changed in home-page">
+      <option name="closed" value="true" />
+      <created>1733999071718</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733999071718</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Colors changed in addDevice. Lay-out changed in home-page">
+      <option name="closed" value="true" />
+      <created>1733999375106</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733999375106</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Colors changed in addDevice. Lay-out changed in home-page">
+      <option name="closed" value="true" />
+      <created>1733999438366</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733999438366</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="3rd commit" />
+    <MESSAGE value="Colors changed in addDevice. Lay-out changed in home-page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Colors changed in addDevice. Lay-out changed in home-page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
