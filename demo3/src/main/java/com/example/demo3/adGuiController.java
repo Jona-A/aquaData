@@ -202,9 +202,10 @@ public class adGuiController implements Initializable {
         }
         return conn;
     }
+
     //add gps id naar tafel linked met als adDevice een gps heeft (true)
     public void sqlAddGps (int gpsId) {
-        String sql = "INSERT INTO coordinaties(gpsId) values (?)";
+        String sql = "INSERT INTO gps(gpsId) values (?)";
         try {
             PreparedStatement preparedStatement = connect().prepareStatement(sql);
             preparedStatement.setInt(1, gpsId);
@@ -255,12 +256,12 @@ public class adGuiController implements Initializable {
              ResultSet rs = statement.executeQuery("SELECT * FROM addevice")) {
 
             while (rs.next()) {
-                int id = rs.getInt("deviceId");
-                String installDate = rs.getString("Installatiedatum");
+                int id = rs.getInt("adId");
+                String installDate = rs.getString("installDatum");
                 String plaatsnaam = rs.getString("Plaatsnaam");
                 String beschrijving = rs.getString("Locatiebeschrijving");
                 double ppm = 420.69;
-                boolean gps = rs.getBoolean("gps");
+                boolean gps = rs.getBoolean("gpsBoolean");
                 int gpsId = rs.getInt("gpsId");
                 data.add(new adApparaat(id, installDate, plaatsnaam, beschrijving, ppm, gps, gpsId));
             }
