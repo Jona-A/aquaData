@@ -8,9 +8,9 @@
    <children>
       <CheckBox fx:id="inputGpsB" layoutX="44.0" layoutY="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="182.0" text="Apparaat heeft GPS?">
       </CheckBox>
-      <Button layoutX="550.0" layoutY="215.0" mnemonicParsing="false" onAction="#addCancel" prefHeight="36.0" prefWidth="88.0" text="Cancel" />
-      <Button fx:id="" layoutX="650.0" layoutY="215.0" mnemonicParsing="false" onAction="#nieuwApparaat" prefHeight="36.0" prefWidth="124.0" text="voeg apparaat toe" />
-      <TextField fx:id="inputPlaatsnaam" layoutX="37.0" layoutY="133.0" prefHeight="25.0" prefWidth="213.0" promptText="Plaatsnaam van locatie apparaat"  />
+      <Button layoutX="550.0" layoutY="215.0" mnemonicParsing="false" onAction="#addCancel" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: red;" text="Cancel" />
+      <Button fx:id="" layoutX="650.0" layoutY="215.0" mnemonicParsing="false" onAction="#nieuwApparaat" prefHeight="36.0" prefWidth="124.0" style="-fx-background-color: blue;" text="voeg apparaat toe" />
+      <TextField fx:id="inputPlaatsnaam" layoutX="37.0" layoutY="133.0" prefHeight="25.0" prefWidth="213.0" promptText="Plaatsnaam van locatie apparaat" />
       <TextField fx:id="inputBeschrijving" layoutX="291.0" layoutY="133.0" prefHeight="119.0" prefWidth="234.0" promptText="Beschrijving van Locatie" />
       <Label layoutX="37.0" layoutY="5.0" prefHeight="36.0" prefWidth="294.0" text="Voeg een Apparaat toe." />
       <Label layoutX="37.0" layoutY="41.0" prefHeight="17.0" prefWidth="213.0" text="Kies zelf een apparaat ID" />

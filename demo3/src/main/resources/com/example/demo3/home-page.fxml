@@ -17,14 +17,22 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
+<<<<<<< HEAD
     <AnchorPane prefHeight="317.0" prefWidth="426.0">
         <children>
             <Button fx:id="adminButton" alignment="CENTER" layoutX="882.0" layoutY="11.0" mnemonicParsing="false" onAction="#logInPage" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: orange;" text="admin" />
             <Text layoutX="25.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overzicht pagina">
+=======
+    <AnchorPane prefHeight="150.0" prefWidth="1433.0">
+        <children>
+            <Button fx:id="adminButton" alignment="CENTER" layoutX="1355.0" layoutY="14.0" mnemonicParsing="false" onAction="#logInPage" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: orange;" text="admin" />
+            <Text layoutX="212.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overzicht pagina">
+>>>>>>> refs/remotes/origin/main
                 <font>
                     <Font size="16.0" />
                 </font>
             </Text>
+<<<<<<< HEAD
             <Button fx:id="btn1" layoutX="25.0" layoutY="68.0" mnemonicParsing="false" onAction="#onClickFirstBtn" prefHeight="26.0" prefWidth="64.0" style="-fx-background-color: blue;" text="Locatie 1" />
             <Button fx:id="btn2" layoutX="25.0" layoutY="93.0" mnemonicParsing="false" onAction="#onClickSecondBtn" style="-fx-background-color: blue;" text="Locatie 2" />
             <Button fx:id="" layoutX="468.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: blue;" text="voeg apparaat toe" />
@@ -53,5 +61,37 @@
             <TableColumn fx:id="gpsId" prefWidth="100.0" text="gps ID" />
         </columns>
     </TableView>
+=======
+            <Button fx:id="btn1" layoutX="212.0" layoutY="141.0" mnemonicParsing="false" onAction="#onClickFirstBtn" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Locatie 1" />
+            <Button fx:id="btn2" layoutX="331.0" layoutY="141.0" mnemonicParsing="false" onAction="#onClickSecondBtn" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: blue;" text="Locatie 2" />
+            <Button fx:id="" layoutX="570.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: blue;" text="voeg apparaat toe" />
+            <Button fx:id="deletebutton" layoutX="776.0" layoutY="120.0" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: red;" text="Verwijder" />
+            <Button fx:id="editRowButton" layoutX="700.0" layoutY="120.0" mnemonicParsing="false" style="-fx-background-color: blue;" text="Bewerk" />
+            <Label fx:id="ClickMeLabel" layoutX="490.0" layoutY="130.0" text="Locatie" />
+            <Label fx:id="welcomeText" layoutX="490.0" layoutY="155.0" prefHeight="17.0" prefWidth="45.0" text="sensor 1" />
+            <TextField fx:id="searchBar" layoutX="570.0" layoutY="80.0" />
+            <Button fx:id="searchBtn" layoutX="735.0" layoutY="80.0" mnemonicParsing="false" onAction="#searchBtn" text="zoek" />
+            <ImageView fitHeight="144.0" fitWidth="150.0" layoutX="952.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/adLogo320px.png" />
+                </image>
+            </ImageView>
+        </children>
+    </AnchorPane>
+
+    <!-- TableView with blue background -->
+    <TableView fx:id="adTafel" maxHeight="600.0" maxWidth="1000.0" minHeight="300.0" minWidth="400.0" prefHeight="600.0" prefWidth="442.0" style="-fx-background-color: #E74C3C;">
+        <columns>
+            <TableColumn fx:id="installD" prefWidth="140.0" text="InstallDate" />
+            <TableColumn fx:id="locatie" prefWidth="125.0" text="Plaats naam" />
+            <TableColumn fx:id="beschrijving" prefWidth="145.0" text="Beschrijving" />
+            <TableColumn fx:id="stofWaarde" prefWidth="135.0" text="PPM" />
+            <TableColumn fx:id="gps" prefWidth="125.0" text="GPS" />
+            <TableColumn fx:id="gpsId" prefWidth="125.0" text="gps ID" />
+            <TableColumn fx:id="adID" editable="false" prefWidth="100.0" text="DeviceID" />
+        </columns>
+    </TableView>
+
+>>>>>>> refs/remotes/origin/main
     <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" />
 </VBox>
