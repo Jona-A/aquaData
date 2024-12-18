@@ -24,6 +24,7 @@ public class adGuiApplication extends Application {
         scene = new Scene(fxmlLoader.load(),800 , 600);
         stage.setTitle("Aqua~Data");
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.show();
     }
     //pageLoading setRoots
