@@ -21,17 +21,7 @@
       <TextField fx:id="inputGpsId" layoutX="80.0" layoutY="217.0" prefHeight="25.0" prefWidth="171.0" promptText="0" />
       <TextField fx:id="inputHardware" layoutX="39.0" layoutY="293.0" prefHeight="25.0" prefWidth="213.0" promptText="Microcontroller" />
       <Label layoutX="42.0" layoutY="268.0" prefHeight="17.0" prefWidth="213.0" text="Voer het soort hardware in" />
-   <TableView fx:id="adTafel" layoutX="14.0" layoutY="255.0" maxHeight="634.0" maxWidth="1000.0" minHeight="300.0" minWidth="400.0" prefHeight="322.0" prefWidth="900.0">
-      <columns>
-         <TableColumn fx:id="adID" editable="false" prefWidth="100.0" text="DeviceID" />
-         <TableColumn fx:id="installD" prefWidth="140.0" text="InstallDate" />
-         <TableColumn fx:id="locatie" prefWidth="125.0" text="Plaats naam" />
-         <TableColumn fx:id="beschrijving" prefWidth="145.0" text="Beschrijving" />
-         <TableColumn fx:id="stofWaarde" prefWidth="135.0" text="PPM" />
-         <TableColumn fx:id="gps" prefWidth="125.0" text="GPS" />
-         <TableColumn fx:id="gpsId" prefWidth="125.0" text="gps ID" />
-      </columns>
-   </TableView>
+
    <Label layoutX="340.0" layoutY="349.0" text="Label" visible="false" />
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="557.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
    <image>

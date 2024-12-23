@@ -2,35 +2,16 @@ package com.example.demo3;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import java.util.ResourceBundle;
 
 public class addDeviceController {
 
@@ -44,21 +25,21 @@ public class addDeviceController {
     //button sets and transfers from buttons and textfields to data types for sql database injections to be added here
     // =)
     @FXML
-    private TableView<adApparaat> adTafel;
+    private TableView<apparaatObj> adTafel;
     @FXML
-    public TableColumn<adApparaat, Integer> adID;
+    public TableColumn<apparaatObj, Integer> adID;
     @FXML
-    public TableColumn<adApparaat, String> installD;
+    public TableColumn<apparaatObj, String> installD;
     @FXML
-    public TableColumn<adApparaat, String> locatie;
+    public TableColumn<apparaatObj, String> locatie;
     @FXML
-    public TableColumn<adApparaat, String> beschrijving;
+    public TableColumn<apparaatObj, String> beschrijving;
     @FXML
-    public TableColumn<adApparaat, Double> stofWaarde;
+    public TableColumn<apparaatObj, Double> stofWaarde;
     @FXML
-    public TableColumn<adApparaat, Boolean> gps;
+    public TableColumn<apparaatObj, Boolean> gps;
     @FXML
-    public TableColumn<adApparaat, Integer> gpsId;
+    public TableColumn<apparaatObj, Integer> gpsId;
     @FXML
     private TextField inputDeviceId;
     @FXML
@@ -97,9 +78,7 @@ public class addDeviceController {
     Random random = new Random();
     Date date = new Date();
 
-    // ObservableList (shared)
-    //ObservableList<adApparaat> list = SharedData.sharedList
-    ObservableList<adApparaat> list = FXCollections.observableArrayList();
+    ObservableList<apparaatObj> list = FXCollections.observableArrayList();
     adGuiController func = new adGuiController();
     @FXML
     public void initialize() {
@@ -109,24 +88,6 @@ public class addDeviceController {
         // Initialize the table columns
         makeTableCells();
     }
-
-
-
-//    // Adds a new row to the table
-//    @FXML
-//    public void addRow() {
-//        // Generate random data
-//        date = Calendar.getInstance().getTime();
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        String strDate = dateFormat.format(date);
-//
-//        int number = random.nextInt(999999);
-//        double ppm = random.nextDouble() * 1000.0;
-//
-//        // Create new device and add to list
-//        adApparaat nieuwApp = new adApparaat(number, strDate, "home", "kamer", ppm, false, 0);
-//        list.add(nieuwApp);
-//    }
 
     // Configures the table columns
     public void makeTableCells() {

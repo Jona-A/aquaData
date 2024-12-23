@@ -1,14 +1,13 @@
 package com.example.demo3;
 
-public class adApparaat {
-    //int adID;
+public class apparaatObj {
+
     public String installD, locatie, beschrijving;
     public int adID, gpsId;
     public double stofWaarde;
     public boolean gps;
-    //boolean gps;
 
-    public adApparaat(int adID, String installD, String locatie, String beschrijving, double stofWaarde, boolean gps, int gpsId) {
+    public apparaatObj(int adID, String installD, String locatie, String beschrijving, double stofWaarde, boolean gps, int gpsId) {
         this.adID = adID;
         this.installD = installD;
         this.locatie = locatie;
@@ -22,8 +21,8 @@ public class adApparaat {
         return adID;
     }
 
-    public void setAdID(int id) {
-        this.adID = id;
+    public void setAdID(int adID) {
+        this.adID = adID;
     }
 
     public String getInstallD() {
@@ -37,6 +36,7 @@ public class adApparaat {
     public String getLocatie() {
         return locatie;
     }
+
     public void setLocatie(String locatie) {
         this.locatie = locatie;
     }

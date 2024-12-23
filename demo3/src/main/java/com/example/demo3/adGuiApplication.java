@@ -6,13 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.awt.*;
 import java.io.IOException;
 
 public class adGuiApplication extends Application {
 
     //scene must be in scope for all methods
     private static Scene scene;
+    adGuiController gui = new adGuiController();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -21,9 +21,10 @@ public class adGuiApplication extends Application {
 
         //default sceneStart
         FXMLLoader fxmlLoader = new FXMLLoader(adGuiApplication.class.getResource("home-page.fxml"));
-        scene = new Scene(fxmlLoader.load(),800 , 600);
+        scene = new Scene(fxmlLoader.load(),975 , 800);
         stage.setTitle("Aqua~Data");
         stage.setScene(scene);
+        gui.startSqlTask();
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.show();
     }
@@ -36,7 +37,6 @@ public class adGuiApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(adGuiApplication.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
 
     public static void main(String[] args) {
         launch();

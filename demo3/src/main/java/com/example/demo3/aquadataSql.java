@@ -1,7 +1,5 @@
 package com.example.demo3;
 
-import javafx.collections.FXCollections;
-
 import java.sql.*;
 
 public class aquadataSql {
@@ -21,5 +19,19 @@ public class aquadataSql {
             System.err.println(e.getMessage());
         }
         return conn;
+    }
+
+    public void insert(String tijdstip, int adId, double ppmWaarde) {
+        String sql = "INSERT INTO ppmData VALUES(?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connect().prepareStatement(sql);
+            preparedStatement.setString(1, tijdstip);
+            preparedStatement.setInt(2, adId);
+            preparedStatement.setDouble(3, ppmWaarde);
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
