@@ -1,49 +1,16 @@
 package com.example.demo3;
-
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import java.util.Date;
-import java.util.Random;
-
-public class addDeviceController {
-
-    // Switch page
-    @FXML
-    private void addCancel() throws IOException {
-        adGuiApplication.setRoot("home-page");
-    }
-
-
-    //button sets and transfers from buttons and textfields to data types for sql database injections to be added here
-    // =)
-    @FXML
-    private TableView<apparaatObj> adTafel;
-    @FXML
-    public TableColumn<apparaatObj, Integer> adID;
-    @FXML
-    public TableColumn<apparaatObj, String> installD;
-    @FXML
-    public TableColumn<apparaatObj, String> locatie;
-    @FXML
-    public TableColumn<apparaatObj, String> beschrijving;
-    @FXML
-    public TableColumn<apparaatObj, Double> stofWaarde;
-    @FXML
-    public TableColumn<apparaatObj, Boolean> gps;
-    @FXML
-    public TableColumn<apparaatObj, Integer> gpsId;
-    @FXML
-    private TextField inputDeviceId;
-    @FXML
-    private TextField inputHardware;
+public class addDeviceController implements Initializable {
     @FXML
     private TextField inputPlaatsnaam;
     @FXML
@@ -52,51 +19,94 @@ public class addDeviceController {
     private TextField inputGpsId;
     @FXML
     private CheckBox inputGpsB;
+    @FXML
+    private ChoiceBox<String> choiceBox;
+    @FXML
+    private Label deviceTitle;
+    @FXML
+    Label gpsID;
+    @FXML
+    private Label hardwareWarning;
+    @FXML
+    private Label plaatsWarning;
+    @FXML
+    private Label gpsWarning;
 
-    adGuiController gui = new adGuiController();
+    String options[] = { "AD-Prototype v1.0", "AD-Prototype v1.1 (GPS)", "AD-Prototype v2.0" };
+
+    private adminController admin;
+
+    // close window
+    @FXML
+    private void addCancel() throws IOException {
+        admin.closeAddDevice();
+    }
+
     @FXML
     public void nieuwApparaat() {
-        adGuiController gui = new adGuiController();
-        int id = Integer.parseInt(inputDeviceId.getText());
-        String hardware = inputHardware.getText();
-        String plaats = inputPlaatsnaam.getText();
-        String beschrijving = inputBeschrijving.getText();
-        boolean gps = false;
-        int gpsId = 0;
-        if (!(inputGpsId.getText().isEmpty())) {
-            gpsId = Integer.parseInt(inputGpsId.getText());
-            gui.sqlAddGps(gpsId);
+        adminController admin = new adminController();
+        hardwareWarning.setVisible(false);
+        plaatsWarning.setVisible(false);
+        gpsWarning.setVisible(false);
+
+        if (choiceBox.getValue() != null && inputPlaatsnaam.getText().length() > 2) {
+            boolean gps = false;
+            int gpsId = 0;
+
+            String hardware = choiceBox.getValue();
+            String plaats = inputPlaatsnaam.getText();
+            String beschrijving = inputBeschrijving.getText();
+
+            if (inputGpsB.isSelected() && inputGpsId.getText().isEmpty()) {
+                gpsWarning.setVisible(true);
+                deviceTitle.setStyle("-fx-text-fill: #FF4000;");
+                deviceTitle.setText("Voer een GPS ID in of de-selecteer gps!");
+            }
+            else {
+                if (inputGpsB.isSelected() && !inputGpsId.getText().isEmpty()) {
+                    gpsId = Integer.parseInt(inputGpsId.getText());
+                    admin.sqlAddGps(gpsId);
+                    gps = true;
+                }
+
+                admin.sqlAddDevice(hardware, plaats, beschrijving, gps, gpsId);
+
+                try {
+                    addCancel();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        if (inputGpsB.isSelected()) {
-            gps = true;
+
+        else if (choiceBox.getValue() == null) {
+            hardwareWarning.setVisible(true);
+            if (inputPlaatsnaam.getText().length() < 3) {
+                plaatsWarning.setVisible(true);
+                deviceTitle.setStyle("-fx-text-fill: #FF4000;");
+                deviceTitle.setText("Selecteer een Versie en voer een PlaatsNaam in!");
+            }
+            else {
+                deviceTitle.setStyle("-fx-text-fill: #FF4000;");
+                deviceTitle.setText("Selecteer een Device-Versie!");
+            }
         }
-        gui.sqlAddDevice(id, hardware, plaats, beschrijving, gps, gpsId);
-        initialize();
+        else {
+            plaatsWarning.setVisible(true);
+            deviceTitle.setStyle("-fx-text-fill: #FF4000;");
+            deviceTitle.setText("Voer een PlaatsNaam in!");
+        }
     }
 
-    // Data and Random Generators
-    Random random = new Random();
-    Date date = new Date();
+    public void setAdminController(adminController admin) { this.admin = admin; }
 
-    ObservableList<apparaatObj> list = FXCollections.observableArrayList();
-    adGuiController func = new adGuiController();
-    @FXML
-    public void initialize() {
-        list = func.getAdDeviceData();
-        // Bind the TableView to the shared list
-        adTafel.setItems(list);
-        // Initialize the table columns
-        makeTableCells();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initChoiceBox();
     }
 
-    // Configures the table columns
-    public void makeTableCells() {
-        adID.setCellValueFactory(new PropertyValueFactory<>("adID"));
-        installD.setCellValueFactory(new PropertyValueFactory<>("installD"));
-        locatie.setCellValueFactory(new PropertyValueFactory<>("locatie"));
-        beschrijving.setCellValueFactory(new PropertyValueFactory<>("beschrijving"));
-        stofWaarde.setCellValueFactory(new PropertyValueFactory<>("stofWaarde"));
-        gps.setCellValueFactory(new PropertyValueFactory<>("gps"));
-        gpsId.setCellValueFactory(new PropertyValueFactory<>("gpsId"));
+    void initChoiceBox() {
+        choiceBox.setItems(FXCollections.observableArrayList(options));
     }
+
 }

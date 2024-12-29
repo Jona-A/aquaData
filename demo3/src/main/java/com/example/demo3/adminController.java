@@ -2,6 +2,10 @@ package com.example.demo3;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -10,6 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -22,11 +29,14 @@ import java.util.Date;
 
 public class adminController implements Initializable {
     public boolean runPpm = false;
+    private String currentStyle;
 
     @FXML
     public TableView<apparaatObj> adTafel;
     @FXML
     public TableColumn<apparaatObj, Integer> adID;
+    @FXML
+    public TableColumn<apparaatObj, String> adVersie;
     @FXML
     public TableColumn<apparaatObj, String> installD;
     @FXML
@@ -87,6 +97,7 @@ public class adminController implements Initializable {
     @FXML
     void makeTableCells() {
         adID.setCellValueFactory(new PropertyValueFactory<apparaatObj, Integer>("adID"));
+        adVersie.setCellValueFactory(new PropertyValueFactory<apparaatObj, String>("hardware"));
         installD.setCellValueFactory(new PropertyValueFactory<apparaatObj, String>("installD"));
         locatie.setCellValueFactory(new PropertyValueFactory<apparaatObj, String>("locatie"));
         beschrijving.setCellValueFactory(new PropertyValueFactory<apparaatObj, String>("beschrijving"));
@@ -104,10 +115,64 @@ public class adminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        adGuiApplication gui = new adGuiApplication();
         makeTableCells();
         list = getAdDeviceData();
         adTafel.setItems(list);
         ppmFiller(); //START BACKGROUND TASK FOR FILLING THE PPM TABLEVIEW
+        currentStyle = gui.getStyle();
+    }
+
+    private boolean initTrue = false;
+    private Stage stage3;
+
+    public void addNewDevice() throws IOException {
+        if (stage3 == null) {
+            stage3 = new Stage();
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addDevice.fxml"));
+        Parent root = loader.load();
+        addDeviceController controller = loader.getController();
+        controller.setAdminController(this);
+        Scene scene = new Scene(root, 450, 350);
+        scene.getStylesheets().add(getClass().getResource(currentStyle).toExternalForm());
+        stage3.setTitle("Add New Device");
+        stage3.getIcons().add(new Image(getClass().getResourceAsStream("images/ADLogo_64px.png")));
+        stage3.setScene(scene);
+        stage3.setResizable(false);
+        if (!initTrue) {
+            stage3.initModality(Modality.APPLICATION_MODAL);
+            stage3.initOwner(adGuiApplication.getScene().getWindow());
+            initTrue = true;
+        }
+        stage3.show();
+    }
+
+
+    void closeAddDevice() {
+        if (stage3 != null && stage3.isShowing()) {
+            stage3.close();
+        } else {
+            System.out.println("Stage is already closed or NULL!");
+        }
+    }
+
+    public Stage getStage3() {
+        return stage3;
+    }
+
+    public void lightMode() {
+        adGuiApplication gui = new adGuiApplication();
+        currentStyle = gui.changeStyle(1);
+        adGuiApplication.getScene().getStylesheets().clear();
+        adGuiApplication.getScene().getStylesheets().add(getClass().getResource(currentStyle).toExternalForm());
+    }
+
+    public void darkMode() {
+        adGuiApplication gui = new adGuiApplication();
+        currentStyle = gui.changeStyle(2);
+        adGuiApplication.getScene().getStylesheets().clear();
+        adGuiApplication.getScene().getStylesheets().add(getClass().getResource(currentStyle).toExternalForm());
     }
 
     //      SQL CONNECTOR FOR GUI-CONTROLLER
@@ -142,24 +207,23 @@ public class adminController implements Initializable {
     }
 
     //      SQL INJECT NEW ROW INTO DEVICE
-    public void sqlAddDevice(int id, String hardware, String plaats, String beschrijving, boolean gps, int gpsId) {
-        String sql = "INSERT INTO addevice values(?, ?, ?, ?, ?, ?, ?)";
+    public void sqlAddDevice( String hardware, String plaats, String beschrijving, boolean gps, int gpsId) {
+        String sql = "INSERT INTO addevice (deviceversie, installdatum, plaatsnaam, locatiebeschrijving, gpsBoolean, gpsId) values(?, ?, ?, ?, ?, ?)";
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         try {
             PreparedStatement preparedStatement = connect().prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, hardware);
-            preparedStatement.setDate(3, sqlDate);
-            preparedStatement.setString(4, plaats);
-            preparedStatement.setString(5, beschrijving);
-            preparedStatement.setBoolean(6, gps);
+            preparedStatement.setString(1, hardware);
+            preparedStatement.setDate(2, sqlDate);
+            preparedStatement.setString(3, plaats);
+            preparedStatement.setString(4, beschrijving);
+            preparedStatement.setBoolean(5, gps);
             if (gpsId != 0) {
-                preparedStatement.setInt(7, gpsId);
+                preparedStatement.setInt(6, gpsId);
             }
             else {
                 String nully = null;
-                preparedStatement.setString(7, nully);
+                preparedStatement.setString(6, nully);
             }
             preparedStatement.executeUpdate();
         }
@@ -171,7 +235,9 @@ public class adminController implements Initializable {
     //      DEVICE TABLE FILLER, LISTING OBJECTS!
     public ObservableList<apparaatObj> getAdDeviceData() {
         ObservableList<apparaatObj> data = FXCollections.observableArrayList();
+
         Connection conn = connect();
+
         if (conn == null) {
             System.err.println("Failed to establish a database connection.");
             return data;
@@ -179,21 +245,37 @@ public class adminController implements Initializable {
 
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery("SELECT * FROM addevice")) {
-
             while (rs.next()) {
                 int id = rs.getInt("adId");
+                String adVersie = rs.getString("deviceVersie");
                 String installDate = rs.getString("installDatum");
                 String plaatsnaam = rs.getString("Plaatsnaam");
                 String beschrijving = rs.getString("Locatiebeschrijving");
-                double ppm = 420.69;
+                double ppm = getLastPpm(id);
                 boolean gps = rs.getBoolean("gpsBoolean");
                 int gpsId = rs.getInt("gpsId");
-                data.add(new apparaatObj(id, installDate, plaatsnaam, beschrijving, ppm, gps, gpsId));
+                data.add(new apparaatObj(id, adVersie, installDate, plaatsnaam, beschrijving, ppm, gps, gpsId));
             }
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage());
         }
         return data;
+    }
+
+    public double getLastPpm(int id) {
+        double lastPpm = 0.0;
+        Connection conn = connect();
+        if (conn == null) {
+            System.err.println("Failed to establish a database connection.");
+            return lastPpm;
+        }
+        try (Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT ppmWaarde FROM ppmdata where adid = " + id + " order by updatetijdstip desc limit 1")) {
+            lastPpm = rs.getDouble("ppmWaarde");
+        } catch (SQLException e) {
+            System.err.println("SQL error: " + e.getMessage() + "   [ GEEN PPM VANUIT DATABASE, DEFAULT IS 0.0 ]");
+        }
+        return lastPpm;
     }
 
     public ObservableList<ppmObj> getPpm(int id) {
@@ -267,7 +349,7 @@ public class adminController implements Initializable {
                                     Platform.runLater(() -> {
                                         XYChart.Series<String, Float> series1 = new XYChart.Series<>();
                                         ppmChart.getData().clear();
-                                        series1.setName("Apparaat: " + id);
+                                        series1.setName("Device Number: " + id);
                                         int getal = 1;
                                         for (ppmObj object : chartList) {
                                             String nummer = Integer.toString(getal);
@@ -293,5 +375,10 @@ public class adminController implements Initializable {
             }
         };
         ppmWorker.execute();
+    }
+
+    public void updateTable(ActionEvent actionEvent) {
+        list = getAdDeviceData();
+        adTafel.setItems(list);
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo3.logInController"
+            prefHeight="200.0" prefWidth="400.0">
+    <children>
+
+        <Label styleClass="loginLabel2" layoutY="10" layoutX="15" prefWidth="350" prefHeight="25" text="Please fill in the Username and Password. "/>
+        <Label fx:id="errorText" styleClass="loginLabel2" layoutY="35" layoutX="25"  prefHeight="25" prefWidth="350" style="-fx-text-fill: #FF2000;" text=""/>
+        <Label styleClass="loginLabel" layoutY="70" layoutX="25" prefWidth="80" prefHeight="25" text="Username: "/>
+        <Label styleClass="loginLabel"  layoutY="110" layoutX="25" prefWidth="80" prefHeight="25" text="Password: "/>
+        <TextField fx:id="usernameInput" layoutY="70" layoutX="115" prefWidth="200" prefHeight="25" promptText="username" />
+        <PasswordField fx:id="passwordInput" layoutX="115" layoutY="110" prefWidth="200" prefHeight="25" promptText="password" />
+        <Button fx:id="adminButton" layoutX="320" layoutY="160" prefHeight="30" prefWidth="70" onAction="#tryLogIn" text="Log-In"/>
+        <Button fx:id="cancelButton" layoutX="15" layoutY="160" prefHeight="30" prefWidth="70" onAction="#cancelLogIn" text="Cancel"/>
+
+    </children>
+
+</AnchorPane>

@@ -1,5 +1,5 @@
 .root {
-       -fx-background-color: #68D0FF;
+       -fx-background-color: #004090;
 }
 .button {
     -fx-border-width: 2px;
@@ -7,7 +7,7 @@
     -fx-font-weight: bold;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-    -fx-background-color: #68D0FF;
+    -fx-background-color: #004090;
 }
 
 .chart {
@@ -18,17 +18,17 @@
 }
 
 .chart-title {
-  -fx-text-fill: #070707;
+  -fx-text-fill: #ffffff;
   -fx-font-weight: bold;
   -fx-font-size: 1.6em;
 }
 
 .axis {
-    -fx-tick-label-fill: #070707;
+    -fx-tick-label-fill: #ffffff;
 }
 
 .axis-label {
-  -fx-text-fill: #070707;
+  -fx-text-fill: #ffffff;
   -fx-font-weight: bold;
 }
 
@@ -42,22 +42,22 @@
 }
 
 .chart-legend-item{
-    -fx-text-fill: #a8ff00;
+    -fx-text-fill: #a0ff00;
     -fx-font-weight: bold;
 }
 
 .chart-plot-background {
-    -fx-background-color: #a0a0a0;
+    -fx-background-color: #202020;
 }
 .chart-vertical-grid-lines {
-    -fx-stroke: #070707;
+    -fx-stroke: #ffffff;
 }
 .chart-horizontal-grid-lines {
-    -fx-stroke: #070707;
+    -fx-stroke: #ffffff;
 }
 
 .chart-alternative-row-fill {
-    -fx-fill: #efefef;
+    -fx-fill: #606060;
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
@@ -65,61 +65,71 @@
 .loginLabel {
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-text-fill: #202020;
+    -fx-text-fill: #ffffff;
 }
 .loginLabel2 {
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: #202020;
+    -fx-text-fill: #ffffff;
 }
 
 #darkButton {
-    -fx-border-color: #3030A0;
-    -fx-text-fill: #3030A0;
+    -fx-border-color: #004090;
+    -fx-text-fill: #004090;
 }
 
 #darkButton:hover {
-    -fx-background-color: #8080FF;
-    -fx-text-fill: #202020;
+    -fx-background-color: #004090;
+    -fx-text-fill: #004090;
 }
 
 #lightButton {
-    -fx-border-color:  #68D0FF;
-    -fx-text-fill:  #68D0FF;
-}
-
-.addDeviceLabels {
-    -fx-font-size: 14;
-    -fx-font-weight: bold;
-    -fx-text-fill: #202020;
-}
-
-#deviceTitle {
-    -fx-font-size: 16;
-    -fx-font-weight: bold;
-    -fx-text-fill: #202020;
-}
-
-#inputGpsB {
-    -fx-font-size: 14;
-    -fx-font-weight: bold;
-    -fx-text-fill: #202020;
+    -fx-border-color: #00A0FF;
+    -fx-text-fill: #40d0FF;
 }
 
 #lightButton:hover {
-    -fx-background-color: #68D0FF;
-    -fx-text-fill: #68D0FF;
+    -fx-background-color: #40D0FF;
+    -fx-text-fill: #202020;
 }
 
 #homeLabel {
     -fx-font-size: 18;
     -fx-font-weight: bold;
-    -fx-text-fill: #008000;
+    -fx-text-fill: #ffffff;
+}
+
+#cancelButton {
+    -fx-border-color: #FF4000;
+    -fx-text-fill: #FF4000;
+}
+
+#cancelButton:hover {
+    -fx-background-color: #FF6040;
+    -fx-text-fill: #202020;
 }
 
 #adminButton {
     -fx-border-color: #CCFF00;
     -fx-text-fill: #CCFF00;
+}
+
+.addDeviceLabels {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+#deviceTitle {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+#inputGpsB {
+    -fx-font-size: 14;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
 #addButton {
@@ -148,16 +158,6 @@
 }
 
 #deleteButton:hover {
-    -fx-background-color: #FF6040;
-    -fx-text-fill: #202020;
-}
-
-#cancelButton {
-    -fx-border-color: #FF4000;
-    -fx-text-fill: #FF4000;
-}
-
-#cancelButton:hover {
     -fx-background-color: #FF6040;
     -fx-text-fill: #202020;
 }
@@ -270,8 +270,8 @@
 
 .table-row-cell:selected {
     -fx-font-fill: #F0F0F0;
-    -fx-background-color:  #68D0FF;
-    -fx-table-cell-border-color: #68D0FF;
+    -fx-background-color:  #0058e0;
+    -fx-table-cell-border-color: #0058e0;
     -fx-background-insets:1 0 1 0, 2 1 2 1;
     -fx-background-radius: 6;
 }
