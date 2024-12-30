@@ -114,6 +114,39 @@
     -fx-text-fill: #CCFF00;
 }
 
+#changeButton {
+    -fx-border-color: #CCFF00;
+    -fx-text-fill: #CCFF00;
+}
+
+#changeButton:hover {
+    -fx-background-color: #E0FF80;
+    -fx-text-fill: #202020;
+}
+
+#ppmAvgLabel {
+    -fx-font-weight: bold;
+    -fx-padding: 1px;
+    -fx-background-radius: 4 0 0 0;
+    -fx-border-width: 2 0 0 2;
+    -fx-border-radius: 4 0 0 0;
+    -fx-border-color: #A6FF00;
+    -fx-background-color: linear-gradient(#60a000 20%, #00C8FF 100%);
+    -fx-font-size: 14;
+    -fx-text-fill: #202020;
+}
+
+#avgPpm {
+    -fx-padding:1px;
+    -fx-background-radius: 0 4 0 0;
+    -fx-background-color: linear-gradient(#60a000 20%, #00C8FF 100%);
+    -fx-border-width: 2 2 0 0;
+    -fx-border-radius: 0 4 0 0;
+    -fx-border-color: #A6FF00;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
 .addDeviceLabels {
     -fx-font-size: 14;
     -fx-font-weight: bold;
@@ -227,7 +260,7 @@
 }
 
 .table-view .column-header-background{
-    -fx-background-color: linear-gradient(#A0FF00 0%, #00C8FF 100%);
+    -fx-background-color: linear-gradient(#00C8FF 0%, #A0FF00 100%);
 }
 
 .table-view .column-header .label {

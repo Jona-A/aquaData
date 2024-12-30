@@ -5,6 +5,7 @@ module com.example.demo3 {
     requires java.desktop;
     requires java.sql;
     requires sp.tty;
+    requires jdk.jdi;
 
 
     opens com.example.demo3 to javafx.fxml;

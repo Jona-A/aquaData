@@ -59,6 +59,8 @@ public class adminController implements Initializable {
     public TextField searchBar;
     @FXML
     public LineChart ppmChart;
+    @FXML
+    public Label avgPpm;
 
     // TABLEVIEW LISTS;
     @FXML
@@ -80,6 +82,38 @@ public class adminController implements Initializable {
         }
         // Update the TableView with the filtered list
         adTafel.setItems(filteredList);
+    }
+
+    public void changeBeschrijving(ActionEvent actionEvent) {
+        String sql = "update addevice set locatieBeschrijving = ? where adid = ?";
+        Connection conn = connect();
+        String changeBeschrijving = searchBar.getText();
+        apparaatObj selectedRow = adTafel.getSelectionModel().getSelectedItem();
+        int thisId = 0;
+        try {
+            thisId = selectedRow.getAdID();
+        } catch (Exception e) {
+             System.err.println(e.getMessage());
+        }
+
+        if (thisId != 0) {
+            try {
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, changeBeschrijving);
+                preparedStatement.setInt(2, thisId);
+                preparedStatement.executeUpdate();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        searchBar.setText("");
+        updateTable(actionEvent);
     }
 
     @FXML
@@ -186,33 +220,45 @@ public class adminController implements Initializable {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(connection, user, password);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return conn;
     }
 
+    public void resetPpm(ActionEvent actionEvent) {
+        adGuiController guiController = new adGuiController();
+        guiController.deletePpmSql();
+    }
+
+
     //      SQL INJECTION ADD GPS ROW
-    public void sqlAddGps (int gpsId) {
+    public void sqlAddGps(int gpsId) {
         String sql = "INSERT INTO gps(gpsId) values (?)";
+        Connection conn = connect();
         try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, gpsId);
             preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        catch (Exception e) {
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
     //      SQL INJECT NEW ROW INTO DEVICE
-    public void sqlAddDevice( String hardware, String plaats, String beschrijving, boolean gps, int gpsId) {
+    public void sqlAddDevice(String hardware, String plaats, String beschrijving, boolean gps, int gpsId) {
         String sql = "INSERT INTO addevice (deviceversie, installdatum, plaatsnaam, locatiebeschrijving, gpsBoolean, gpsId) values(?, ?, ?, ?, ?, ?)";
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        Connection conn = connect();
         try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, hardware);
             preparedStatement.setDate(2, sqlDate);
             preparedStatement.setString(3, plaats);
@@ -220,14 +266,17 @@ public class adminController implements Initializable {
             preparedStatement.setBoolean(5, gps);
             if (gpsId != 0) {
                 preparedStatement.setInt(6, gpsId);
-            }
-            else {
-                String nully = null;
-                preparedStatement.setString(6, nully);
+            } else {
+                preparedStatement.setString(6, null);
             }
             preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        catch (Exception e) {
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -259,6 +308,13 @@ public class adminController implements Initializable {
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage());
         }
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
         return data;
     }
 
@@ -271,10 +327,19 @@ public class adminController implements Initializable {
         }
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery("SELECT ppmWaarde FROM ppmdata where adid = " + id + " order by updatetijdstip desc limit 1")) {
-            lastPpm = rs.getDouble("ppmWaarde");
+            while (rs.next()) {
+                lastPpm = rs.getDouble("ppmWaarde");
+            }
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage() + "   [ GEEN PPM VANUIT DATABASE, DEFAULT IS 0.0 ]");
         }
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
         return lastPpm;
     }
 
@@ -296,6 +361,13 @@ public class adminController implements Initializable {
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage());
         }
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
         return data;
     }
 
@@ -309,7 +381,7 @@ public class adminController implements Initializable {
         }
 
         try (Statement statement = conn.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT updateTijdStip, ppmWaarde FROM ppmdata where adid = " + id + " order by updatetijdstip desc limit 20")) {
+             ResultSet rs = statement.executeQuery("SELECT updateTijdStip, ppmWaarde FROM ppmdata where adid = " + id + " order by updatetijdstip desc limit 40")) {
             while (rs.next()) {
                 String ppmDate = rs.getString("updateTijdStip");
                 float ppmwaarde = rs.getFloat("ppmWaarde");
@@ -318,63 +390,173 @@ public class adminController implements Initializable {
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage());
         }
+
+        try {
+            conn.close();
+        }   catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
         return dataPoints;
+    }
+
+    public double getPpmAvg(int id) {
+        double avg = 0.0;
+        String sql = "select avg(ppmwaarde) as ppmAvg from ppmdata where adid = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id); // Zet de parameterwaarde (adid) in de query
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    avg = rs.getDouble("ppmAvg"); // Haal het gemiddelde op
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL error: " + e.getMessage());
+            return 0.0;
+        }
+
+        return avg;
     }
 
     //      PPM TABLE FILLER WITH A SELECT SQL INJECTION FROM THE DATABASE
     public void ppmFiller() {
 
         SwingWorker<Void, Void> ppmWorker = new SwingWorker<>() {
+
             @Override
             protected  Void doInBackground() {
                 int lastId = 0;
+                int listLength = 0;
+
                 runPpm = true;
+
                 try {
+
                     while(runPpm) {
                         apparaatObj currentRow = adTafel.getSelectionModel().getSelectedItem();
+
                         if(currentRow != null) {
-                            Thread.sleep(100);
-                            int id = currentRow.getAdID();
+                            int id = currentRow.getAdID(); // set identifiable number to the current row's ID
+
+
+                            if (id != lastId) {
+                                ppmChart.setAnimated(true);
+                                lastId = id;
+                            }
+
 
                             ppmList = getPpm(id);   //      PUT AQUADATA OBJECT LIST INTO A NEW LIST
+
+
                             SwingUtilities.invokeLater(() -> {
-                                makePpmTableCells();
-                                ppmTafel.setItems(ppmList);
+                                makePpmTableCells(); //make cells for ppm table
+                                ppmTafel.setItems(ppmList); //add list of items to the table
                             });
-
-                            if (lastId != id) {
+                            if (listLength != ppmList.size()) { //updating chart when length in size changes / ppm is updated
                                 new Thread(() -> {
-                                    List<ppmObj> chartList = fetchPpmList(id);
-
+                                    List<ppmObj> chartList = fetchPpmList(id); //fetch the sql data list from the loop AKA fetchppmlist function
                                     Platform.runLater(() -> {
                                         XYChart.Series<String, Float> series1 = new XYChart.Series<>();
-                                        ppmChart.getData().clear();
+                                        int getal = 1; // counter for inserting the amount of sql retrieved data rows/sets
+
+                                        ppmChart.getData().clear(); //clear chart before making a new one
                                         series1.setName("Device Number: " + id);
-                                        int getal = 1;
+
                                         for (ppmObj object : chartList) {
                                             String nummer = Integer.toString(getal);
                                             series1.getData().add(new XYChart.Data<>(nummer, object.getPpmWaarde()));
                                             getal++;
                                         }
-                                        ppmChart.getData().add(series1);
+                                        ppmChart.getData().add(series1); // fill the chart
 
+                                        if (!chartList.isEmpty()) {
+                                            double lastPpm = Math.abs(chartList.getFirst().getPpmWaarde());
+                                            String formattedPpm = String.format("%.2f", lastPpm);
+                                            currentRow.setStofWaarde(Double.parseDouble(formattedPpm));
+                                            adTafel.refresh();
+                                        }
+
+                                        try {
+                                            double ppmAverage;
+                                            double ppmAve;
+                                            ppmAve = getPpmAvg(id);
+
+                                            String str = "";
+                                            if (ppmAve < 0.01) {
+                                                str = "none";
+                                                avgPpm.setStyle("-fx-text-fill:#204000;");
+                                                avgPpm.setText(str);
+                                            }
+                                            else {
+                                                str = String.format("%.2f", ppmAve);
+                                                ppmAverage = Double.parseDouble(str);
+                                                setPpmColor(ppmAverage);
+                                                avgPpm.setText(str);
+                                            }
+                                        } catch (Exception e) {
+                                            throw e;
+                                        }
+
+                                        ppmChart.setAnimated(false);
                                     });
-                                }).start();
-                                Thread.sleep(100);
+                                }) .start();
+
+                                listLength = ppmList.size();
+                                //Thread.sleep(1500);
                             }
-                            lastId = id;
                         }
-                        Thread.sleep(500); //      DELAY 1 SECOND
+                        Thread.sleep(500);
                     }
                 }
                 catch (Exception e) {
-                    System.out.println("ERROR");
+                    System.out.println("ERROR: 99 ");
                     e.printStackTrace(); // Dit drukt de foutmeldingen af.
                 }
                 return null;
             }
         };
         ppmWorker.execute();
+    }
+    public void setPpmColor(double nb) {
+        if (nb > 1000) {
+            avgPpm.setStyle("-fx-text-fill: #FF0000;");
+        } else if (nb > 875) {
+            avgPpm.setStyle("-fx-text-fill: #FF2000;");
+        } else if (nb > 750) {
+            avgPpm.setStyle("-fx-text-fill: #FF4000;");
+        } else if (nb > 650) {
+            avgPpm.setStyle("-fx-text-fill: #FF6000;");
+        } else if (nb > 550) {
+            avgPpm.setStyle("-fx-text-fill: #FF8000;");
+        } else if (nb > 475) {
+            avgPpm.setStyle("-fx-text-fill: #FFa000;");
+        } else if (nb > 400) {
+            avgPpm.setStyle("-fx-text-fill: #FFc000;");
+        } else if (nb > 350) {
+            avgPpm.setStyle("-fx-text-fill: #FFe000;");
+        } else if (nb > 300) {
+            avgPpm.setStyle("-fx-text-fill: #FFFF00;");
+        } else if (nb > 250) {
+            avgPpm.setStyle("-fx-text-fill: #e0ff00;");
+        } else if (nb > 200) {
+            avgPpm.setStyle("-fx-text-fill: #c0ff00;");
+        } else if (nb > 150) {
+            avgPpm.setStyle("-fx-text-fill: #a0ff00;");
+        } else if (nb > 100) {
+            avgPpm.setStyle("-fx-text-fill: #80ff00;");
+        } else if (nb > 50) {
+            avgPpm.setStyle("-fx-text-fill: #60ff00;");
+        } else if (nb > 25) {
+            avgPpm.setStyle("-fx-text-fill: #40ff00;");
+        } else if (nb > 10) {
+            avgPpm.setStyle("-fx-text-fill: #20ff00;");
+        } else
+            avgPpm.setStyle("-fx-text-fill: #00ff00;");
+
     }
 
     public void updateTable(ActionEvent actionEvent) {

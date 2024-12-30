@@ -1,11 +1,11 @@
 package com.example.demo3;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,15 +24,13 @@ public class addDeviceController implements Initializable {
     @FXML
     private Label deviceTitle;
     @FXML
-    Label gpsID;
-    @FXML
     private Label hardwareWarning;
     @FXML
     private Label plaatsWarning;
     @FXML
     private Label gpsWarning;
 
-    String options[] = { "AD-Prototype v1.0", "AD-Prototype v1.1 (GPS)", "AD-Prototype v2.0" };
+    String[] options = { "AD-Prototype v1.0", "AD-Prototype v1.1 (GPS)", "AD-Prototype v2.0" };
 
     private adminController admin;
 
@@ -43,7 +41,7 @@ public class addDeviceController implements Initializable {
     }
 
     @FXML
-    public void nieuwApparaat() {
+    public void nieuwApparaat(ActionEvent actionEvent) {
         adminController admin = new adminController();
         hardwareWarning.setVisible(false);
         plaatsWarning.setVisible(false);

@@ -43,7 +43,7 @@ public class adGuiApplication extends Application {
 
         //default sceneStart
         FXMLLoader fxmlLoader = new FXMLLoader(adGuiApplication.class.getResource("home-page.fxml"));
-        scene = new Scene(fxmlLoader.load(),1100 , 800);
+        scene = new Scene(fxmlLoader.load(),1150 , 800);
         stage.setTitle("Aqua~Data");
         stage.setScene(scene);
         gui.startSqlTask();

@@ -8,31 +8,34 @@
 <?import javafx.scene.text.*?>
 
 <?import javafx.scene.effect.Glow?>
-<VBox alignment="CENTER" prefHeight="800.0" prefWidth="1100.0" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.adminController">
+<VBox alignment="CENTER_LEFT" prefHeight="800.0" prefWidth="1150.0" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.adminController">
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="2.0" />
     </padding>
-    <AnchorPane maxHeight="400.0" maxWidth="1100.0" minHeight="250.0" minWidth="500.0" prefHeight="325.0" prefWidth="1100.0">
+    <AnchorPane maxHeight="400.0" maxWidth="1150.0" minHeight="250.0" minWidth="500.0" prefHeight="325.0" prefWidth="1150.0">
         <children>
             <Text fx:id="homeLabel" layoutX="20.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overzicht pagina">
                 <font>
                     <Font size="16.0" />
                 </font>
             </Text>
+            <Label fx:id="ppmAvgLabel" layoutX="825.0" layoutY="306.0" prefWidth="105.0" prefHeight="25.0" text="Average PPM:"/>
+            <Label fx:id="avgPpm" layoutX="930.0" layoutY="306.0" prefWidth="105.0" prefHeight="25.0" text=" "/>
             <Button fx:id="addButton" layoutX="130.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" onAction="#addNewDevice" text="Add Device" />
             <Button fx:id="deleteButton" layoutX="145.0" layoutY="195.0" mnemonicParsing="false" onAction="#deleteRow" prefWidth="120.0"  text="Delete" />
-            <Button fx:id="resetButton" layoutX="15.0" layoutY="195.0" mnemonicParsing="false" onAction="#deleteRow" prefWidth="115.0" text="Reset PPM" />
-            <Button fx:id="updateButton" layoutX="15.0" layoutY="235.0" mnemonicParsing="false" onAction="#updateTable" prefWidth="100.0" text="Update" />
-            <Button fx:id="lightButton" layoutX="185.0" layoutY="150.0"  onAction="#lightMode" prefHeight="25.0" prefWidth="80.0" text="light" />
-            <Button fx:id="darkButton" layoutX="185.0" layoutY="110.0"  onAction="#darkMode" prefHeight="25.0" prefWidth="80.0" text="dark" />
-            <TextField fx:id="searchBar" layoutX="15.0" layoutY="275.0" prefHeight="30.0" prefWidth="175.0" promptText="zoek op plaats" />
+            <Button fx:id="resetButton" layoutX="15.0" layoutY="195.0" mnemonicParsing="false" onAction="#resetPpm" prefWidth="115.0" text="Reset PPM" />
+            <Button fx:id="changeButton" layoutX="15.0" layoutY="235.0" mnemonicParsing="false" onAction="#changeBeschrijving" prefWidth="100.0" text="Change" />
+            <Button fx:id="lightButton" layoutX="185.0" layoutY="110.0"  onAction="#lightMode" prefHeight="25.0" prefWidth="80.0" text="light" />
+            <Button fx:id="updateButton" layoutX="185.0" layoutY="150.0"  onAction="#updateTable"  prefHeight="25.0" prefWidth="80.0" text="Update" />
+            <Button fx:id="darkButton" layoutX="185.0" layoutY="70.0"  onAction="#darkMode" prefHeight="25.0" prefWidth="80.0" text="dark" />
+            <TextField fx:id="searchBar" layoutX="15.0" layoutY="275.0" prefHeight="30.0" prefWidth="175.0" promptText="Change or Search" />
             <Button fx:id="searchBtn" layoutX="195.0" layoutY="275.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="25.0" prefWidth="70.0" text="Search" />
             <ImageView fitHeight="144.0" fitWidth="150.0" layoutX="15.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/adLogo320px.png" />
                 </image>
             </ImageView>
-            <LineChart fx:id="ppmChart" layoutX="293.0" layoutY="8.0" prefHeight="300.0" prefWidth="800.0" title="Parts per million chart" AnchorPane.bottomAnchor="-8.666666666666629" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="41.66666666666663" AnchorPane.topAnchor="8.0">
+            <LineChart fx:id="ppmChart" layoutX="250.0" layoutY="8.0" prefHeight="300.0" prefWidth="870.0" title="Parts per million chart" AnchorPane.bottomAnchor="-8.666666666666629" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0">
                 <xAxis>
                     <CategoryAxis side="BOTTOM" label="Most Recent readings"/>
                 </xAxis>
@@ -60,9 +63,14 @@
         </TableView>
         <TableView fx:id="ppmTafel" layoutX="825.0" maxHeight="600.0" maxWidth="210.0" minHeight="400.0" minWidth="210.0" prefHeight="450.0" prefWidth="210.0">
             <columns>
-                <TableColumn fx:id="ppmTijd" minWidth="0.0" prefWidth="125.0" text="Update-Tijd" />
-                <TableColumn fx:id="ppmWaarde" minWidth="0.0" prefWidth="75.0" text="PPM" />
+                <TableColumn fx:id="ppmTijd" minWidth="0.0" prefWidth="125.0" text="Update-Tijd" sortable="false" />
+                <TableColumn fx:id="ppmWaarde" minWidth="0.0" prefWidth="75.0" text="PPM" sortable="false" />
             </columns>
         </TableView>
+        <ImageView fitHeight="420.0" fitWidth="90.0" layoutX="1040.0" layoutY="15.0">
+            <image>
+                <Image url="@images/tds-ppm-image.png" />
+            </image>
+        </ImageView>
     </AnchorPane>
 </VBox>
