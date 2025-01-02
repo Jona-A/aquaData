@@ -23,8 +23,8 @@
                 </font>
             </Text>
 
-            <Label fx:id="ppmAvgLabel" layoutX="825.0" layoutY="306.0" prefWidth="105.0" prefHeight="25.0" text="Average PPM:"/>
-            <Label fx:id="avgPpm" layoutX="930.0" layoutY="306.0" prefWidth="105.0" prefHeight="25.0" text=" "/>
+            <Label fx:id="ppmAvgLabel" layoutX="825.0" layoutY="300.0" prefWidth="105.0" prefHeight="25.0" text="Average PPM:"/>
+            <Label fx:id="avgPpm" layoutX="930.0" layoutY="300.0" prefWidth="105.0" prefHeight="25.0" text=" "/>
 
             <TextField fx:id="searchBar" layoutX="15.0" layoutY="275.0" prefHeight="30.0" prefWidth="175.0" promptText="zoek op plaats" />
             <Button fx:id="searchBtn" layoutX="195.0" layoutY="275.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="25.0" prefWidth="70.0" text="Search" />
@@ -48,8 +48,8 @@
             </LineChart>
         </children>
     </AnchorPane>
-    <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="200.0" minWidth="500.0" prefHeight="450.0" prefWidth="1100.0">
-        <TableView fx:id="adTafel" maxHeight="600.0" maxWidth="810.0" minHeight="200.0" minWidth="710.0" prefHeight="450.0" prefWidth="810.0">
+    <AnchorPane maxHeight="600.0" maxWidth="1100.0" minHeight="200.0" minWidth="500.0" prefHeight="475.0" prefWidth="1100.0">
+        <TableView fx:id="adTafel" maxHeight="600.0" maxWidth="810.0" minHeight="200.0" minWidth="710.0" prefHeight="461.0" prefWidth="810.0">
             <columns>
                 <TableColumn fx:id="adID" prefWidth="45.0" text="ID" />
                 <TableColumn fx:id="adVersie" prefWidth="130.0" text="Device Versie" />
@@ -61,13 +61,13 @@
                 <TableColumn fx:id="gpsId" prefWidth="60.0" text="GPS-ID " />
             </columns>
         </TableView>
-        <TableView fx:id="ppmTafel" layoutX="825.0" maxHeight="600.0" maxWidth="210.0" minHeight="200.0" minWidth="210.0" prefHeight="450.0" prefWidth="210.0">
+        <TableView fx:id="ppmTafel" layoutX="825.0" maxHeight="600.0" maxWidth="210.0" minHeight="200.0" minWidth="210.0" prefHeight="461.0" prefWidth="210.0">
             <columns>
                 <TableColumn fx:id="ppmTijd" minWidth="0.0" prefWidth="125.0" sortable="false" text="Update-Tijd" />
                 <TableColumn fx:id="ppmWaarde" minWidth="0.0" prefWidth="75.0" sortable="false" text="PPM" />
             </columns>
         </TableView>
-       <ImageView fitHeight="465.0" fitWidth="90.0" layoutX="1040.0" layoutY="-20.0">
+       <ImageView fitHeight="465.0" fitWidth="90.0" layoutX="1040.0" layoutY="-10.0">
            <image>
                <Image url="@images/tds-ppm-image.png" />
            </image>
