@@ -534,7 +534,7 @@ public class adGuiController implements Initializable {
                         System.out.print("EMPTY PORT: ");
                     }
                     // COM poort kun je ook hard invullen, zoek via Arduino of Device Manager uit welke COM poort je gebruikt:
-                    // long handle = scm.openComPort("COM3", true, true, true);
+                    //long handle = scm.openComPort("COM3", true, true, true);
 
                     long handle = scm.openComPort(port, true, true, true);
                     scm.configureComPortData(handle, DATABITS.DB_8, STOPBITS.SB_1, PARITY.P_NONE, BAUDRATE.B9600, 0);
@@ -583,7 +583,8 @@ public class adGuiController implements Initializable {
 
                 } catch (Exception e) { // Stukje foutafhandeling, wordt als het goed is nooit gebruikt
                     System.out.print("\033[1;93m\033[41m"); // Dikke gele tekst in rode achtergrond (ANSI colors Java)
-                    System.out.print("NO AQUADATA DEVICE ACTIVE!");
+                    System.out.print("NO AQUADATA DEVICE ACTIVE!\n");
+                    System.out.println(e.getMessage() + e.getStackTrace());
                     System.out.println("\033[0m"); // Tekstkleuren weer resetten naar standaard.
                     //e.printStackTrace(); // Dit drukt de foutmeldingen af.
                 }

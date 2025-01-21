@@ -16,7 +16,7 @@
 }
 
 .table-view .scroll-bar:hover .thumb {
-    -fx-width:4px;
+    -fx-width:4px; //homeLabel
     -fx-border-width: 2;
     -fx-border-radius: 10px;
     -fx-border-color: #30a8df;
@@ -150,7 +150,7 @@
 #homeLabel {
     -fx-font-size: 18;
     -fx-font-weight: bold;
-    -fx-text-fill: #008000;
+    -fx-text-fill: #008000; /* home text*/
 }
 
 #adminButton {

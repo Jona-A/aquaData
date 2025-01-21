@@ -21,15 +21,21 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.net.URL;
-import java.util.Date;
 
 
 public class adminController implements Initializable {
     public boolean runPpm = false;
     private String currentStyle;
+    public Label ppmAvgLabel;
+    public Button addButton;
+    public Button deleteButton;
+    public Button resetButton;
+    public Button changeButton;
+    public Button lightButton;
+    public Button updateButton;
+    public Button darkButton;
 
     @FXML
     public TableView<apparaatObj> adTafel;
